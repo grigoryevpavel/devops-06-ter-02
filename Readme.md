@@ -83,7 +83,25 @@
 
 # Решение 5
 
+В файле locals.tf описаны переменные с именами машин:
+> locals {
+>    vm_web_name="${var.vm_web_name}"
+>    vm_db_name="${var.vm_db_name}"
+> }
 
+Файле main.tf в блоках отвечающих за инициализацию ВМ **example** и **example2** использованы локальные переменные для задания имен этих ВМ:
+> resource "yandex_compute_instance" "example" {
+>    name        = local.vm_web_name
+>    ...
+> }
+> resource "yandex_compute_instance" "example2" {
+>    name        = local.vm_db_name
+>    ...
+> }
+
+### Результат развертывания (изменений нет):
+
+<img src='images/locals.png'>
 
 # Задание 6
 
@@ -93,3 +111,21 @@
 4. Проверьте terraform plan. Изменений быть не должно.
 
 # Решение 6
+
+В результате получилось два блока
+1. Для веб-сервера:
+   > resources{
+   >  cores  = local.vms_resources.web.cores
+   >  memory = local.vms_resources.web.memory 
+   >  core_fraction = local.vms_resources.web.core_fraction
+   > } 
+2. Для сервера БД:
+   > resources {
+   >  cores=local.vms_resources.db.cores
+   >  memory=local.vms_resources.db.memory
+   >  core_fraction=local.vms_resources.db.core_fraction
+   > }
+
+### Результат выполнения ```terraform plan```:
+
+<img src='images/terraform-plan2.png'>

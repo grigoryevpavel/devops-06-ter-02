@@ -18,15 +18,15 @@ data "yandex_compute_image" "ubuntu-2004-lts" {
 }
 
 resource "yandex_compute_instance" "example" {
-  name        = local.vm_web
+  name        = local.vm_web_name
   platform_id = var.vm_web_platform
   allow_stopping_for_update = true
 
-  resources {
-    cores  = 2
-    memory = 1 
-    core_fraction = 5
-  }
+  resources{
+    cores  = local.vms_resources.web.cores
+    memory = local.vms_resources.web.memory 
+    core_fraction = local.vms_resources.web.core_fraction
+  } 
 
   boot_disk {
     initialize_params {
@@ -49,14 +49,14 @@ resource "yandex_compute_instance" "example" {
 }
  
 resource "yandex_compute_instance" "example2" {
-  name        = local.vm_db
+  name        = local.vm_db_name
   platform_id = var.vm_db_platform
   allow_stopping_for_update = true
 
   resources {
-    cores  = 2
-    memory = 2 
-    core_fraction = 20
+    cores=local.vms_resources.db.cores
+    memory=local.vms_resources.db.memory
+    core_fraction=local.vms_resources.db.core_fraction
   }
 
   boot_disk {
