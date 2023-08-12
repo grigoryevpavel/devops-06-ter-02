@@ -37,25 +37,4 @@ variable "vms_ssh_root_key" {
   type        = string
   default     = "AAAAC3NzaC1lZDI1NTE5AAAAID8jhDzsaOvDdpoN/9j6FApnIvtnkCD62gFx5qDkj4j0"
   description = "ssh public key"
-}
-
-variable "vm_web_family"{
-  type = string
-  default = "ubuntu-2004-lts"
-}
-
-
-variable "vm_web_name"{
-  type = string
-  default = "netology-develop-platform-web"
-}
-
-variable "vm_web_platform"{
-  type = string
-  default = "standard-v1"
-}
-
-variable "vm_web_disktype"{
-  type = string
-  default = "network-hdd"
-}
+} 
