@@ -82,19 +82,20 @@
 
 
 # Решение 5
-
 В файле locals.tf описаны переменные с именами машин:
-> locals { \
->    vm_web_name="${var.vm_web_name}" \
->    vm_db_name="${var.vm_db_name}" \
-> } 
+   > locals { \
+   >    vm_web_name="netology-${var.vpc_name}-platform-web" \
+   >    vm_db_name="netology-${var.vpc_name}-platform-db" \ 
+   >    ...
+   > } 
+   Имена машин созданы как интерполяция входной переменной ```vpc_name```
 
-Файле main.tf в блоках отвечающих за инициализацию ВМ **example** и **example2** использованы локальные переменные для задания имен этих ВМ:
-> resource "yandex_compute_instance" "example" { \
+Файле main.tf в блоках отвечающих за инициализацию ВМ **web** и **db** использованы локальные переменные для задания имен этих ВМ:
+> resource "yandex_compute_instance" "web" { \
 >    name        = local.vm_web_name \
 >    ... \
 > } \
-> resource "yandex_compute_instance" "example2" { \
+> resource "yandex_compute_instance" "db" { \
 >    name        = local.vm_db_name \
 >    ... \
 > } 
@@ -102,6 +103,10 @@
 ### Результат развертывания (изменений нет):
 
 <img src='images/locals.png'>
+
+### Результат развертывания после корректировки (изменений нет):
+
+<img src='images/terraform-fix1.png'>
 
 # Задание 6
 
@@ -112,7 +117,8 @@
 
 # Решение 6
 
-В результате получилось два блока
+Все локальные переменные объявлены в одном блоке ```locals``` .
+В результате в ```main.tf``` получилось два блока
 1. Для веб-сервера:
    > resources{ \
    >  cores  = local.vms_resources.web.cores \
@@ -129,3 +135,4 @@
 ### Результат выполнения ```terraform plan```:
 
 <img src='images/terraform-plan2.png'>
+
