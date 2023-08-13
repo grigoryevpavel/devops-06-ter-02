@@ -1,23 +1,10 @@
-terraform {
-  required_providers {
-    yandex = { source = "yandex-cloud/yandex"
-    }
-  }
-  required_version = ">=0.13" 
-}
-provider "yandex" {
-    token     = var.token
-    cloud_id  = var.cloud_id
-    folder_id = var.folder_id
-    zone      = "ru-central1-a"
- }
-
  #считываем данные об образе ОС
 data "yandex_compute_image" "ubuntu-2004-lts" {
   family = var.vm_db_family 
 }
 
-resource "yandex_compute_instance" "example" {
+# 
+resource "yandex_compute_instance" "web" {
   name        = local.vm_web_name
   platform_id = var.vm_web_platform
   allow_stopping_for_update = true
@@ -44,11 +31,11 @@ resource "yandex_compute_instance" "example" {
  }
 
  
-  metadata = local.ssh_key
+  metadata = local.vms_metadata
  
 }
  
-resource "yandex_compute_instance" "example2" {
+resource "yandex_compute_instance" "db" {
   name        = local.vm_db_name
   platform_id = var.vm_db_platform
   allow_stopping_for_update = true
@@ -75,6 +62,6 @@ resource "yandex_compute_instance" "example2" {
  }
 
  
-  metadata = local.ssh_key
+  metadata = local.vms_metadata
  
 }
