@@ -31,7 +31,7 @@ resource "yandex_compute_instance" "web" {
  }
 
  
-  metadata = var.vms_metadata
+  metadata = local.vms_metadata
  
 }
  
@@ -62,6 +62,6 @@ resource "yandex_compute_instance" "db" {
  }
 
  
-  metadata = var.vms_metadata
+  metadata = local.vms_metadata
  
 }

@@ -153,8 +153,8 @@
    >  memory=var.vms_resources.db.memory \
    >  core_fraction=var.vms_resources.db.core_fraction \
    > }
-3. А также используется общая для обоих ВМ input-переменная ```vms_metadata```
-   > metadata = var.vms_metadata
+3. А также используется общая для обоих ВМ local-переменная ```vms_metadata```. Локальная она потому, что потом будем использовать функцию file("~/.ssh/id_rsa.pub")
+   > metadata = local.vms_metadata
 
 
 ### Результат выполнения ```terraform plan```(в прошлый раз):

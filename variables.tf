@@ -46,9 +46,8 @@ variable "vms_resources"{
             core_fraction = 20
         }
     }
-}
-# Метаданные для всех ВМ
- variable   "vms_metadata"   {
-  type = map
-  default = {} 
+} 
+ variable   "public_key"   {
+  type = string 
+  sensitive = true
  }
