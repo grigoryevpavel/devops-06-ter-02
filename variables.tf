@@ -31,10 +31,24 @@ variable "vpc_name" {
 }
  
 
-###ssh vars
-
-variable "vms_ssh_root_key" {
-  type        = string 
-  description = "ssh public key"
-  sensitive = true
-} 
+ # Ресурсы всех ВМ
+variable "vms_resources"{ 
+  type = map
+  default={
+        web={  
+            cores  = 2
+            memory = 1 
+            core_fraction = 5
+        }
+        db={
+            cores  = 2
+            memory = 2 
+            core_fraction = 20
+        }
+    }
+}
+# Метаданные для всех ВМ
+ variable   "vms_metadata"   {
+  type = map
+  default = {} 
+ }

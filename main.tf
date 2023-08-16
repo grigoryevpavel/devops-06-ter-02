@@ -10,9 +10,9 @@ resource "yandex_compute_instance" "web" {
   allow_stopping_for_update = true
 
   resources{
-    cores  = local.vms_resources.web.cores
-    memory = local.vms_resources.web.memory 
-    core_fraction = local.vms_resources.web.core_fraction
+    cores  = var.vms_resources.web.cores
+    memory = var.vms_resources.web.memory 
+    core_fraction = var.vms_resources.web.core_fraction
   } 
 
   boot_disk {
@@ -31,7 +31,7 @@ resource "yandex_compute_instance" "web" {
  }
 
  
-  metadata = local.vms_metadata
+  metadata = var.vms_metadata
  
 }
  
@@ -41,9 +41,9 @@ resource "yandex_compute_instance" "db" {
   allow_stopping_for_update = true
 
   resources {
-    cores=local.vms_resources.db.cores
-    memory=local.vms_resources.db.memory
-    core_fraction=local.vms_resources.db.core_fraction
+    cores=var.vms_resources.db.cores
+    memory=var.vms_resources.db.memory
+    core_fraction=var.vms_resources.db.core_fraction
   }
 
   boot_disk {
@@ -62,6 +62,6 @@ resource "yandex_compute_instance" "db" {
  }
 
  
-  metadata = local.vms_metadata
+  metadata = var.vms_metadata
  
 }
