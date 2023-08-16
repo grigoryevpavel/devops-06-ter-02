@@ -117,28 +117,30 @@
 
 # Решение 6
 
- Все статические переменные вынесены в input-переменные:
-   > variable "vms_resources"{ 
-   >  type = map
-   >  default={
-   >     web={  
-   >         cores  = 2
-   >         memory = 1 
-   >         core_fraction = 5
-   >     }
-   >     db={
-   >         cores  = 2
-   >         memory = 2 
-   >         core_fraction = 20
-   >     }
-   >   }
-   > }
-   > 
-   > variable   "vms_metadata"   {
-   >  type = map
-   >  default = {} 
-   > }
-В результате в ```main.tf``` получилось(вместо local используются input-переменные)
+Все статические переменные вынесены в input-переменные:
+   > variable "vms_resources" { \
+   >   type = map  \
+   >   default={  \
+   >     web={    \
+   >       cores  = 2  \
+   >       memory = 1   \
+   >       core_fraction = 5 \
+   >     }  \
+   >     db={ \
+   >        cores  = 2  \
+   >        memory = 2 \
+   >        core_fraction = 20 \
+   >     } \
+   >   } \
+   > }  \
+   >  
+   > variable   "vms_metadata"   { \
+   >    type = map  \
+   >    default = {}   \
+   > } \
+  
+
+В результате в **main.tf** получилось(вместо local используются input-переменные)
 1. Для веб-сервера:
    > resources{ \
    >  cores  = var.vms_resources.web.cores \
