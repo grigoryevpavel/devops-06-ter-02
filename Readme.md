@@ -117,22 +117,51 @@
 
 # Решение 6
 
-Все локальные переменные объявлены в одном блоке ```locals``` .
-В результате в ```main.tf``` получилось два блока
+ Все статические переменные вынесены в input-переменные:
+   > variable "vms_resources"{ 
+   >  type = map
+   >  default={
+   >     web={  
+   >         cores  = 2
+   >         memory = 1 
+   >         core_fraction = 5
+   >     }
+   >     db={
+   >         cores  = 2
+   >         memory = 2 
+   >         core_fraction = 20
+   >     }
+   >   }
+   > }
+   > 
+   > variable   "vms_metadata"   {
+   >  type = map
+   >  default = {} 
+   > }
+В результате в ```main.tf``` получилось(вместо local используются input-переменные)
 1. Для веб-сервера:
    > resources{ \
-   >  cores  = local.vms_resources.web.cores \
-   >  memory = local.vms_resources.web.memory  \
-   >  core_fraction = local.vms_resources.web.core_fraction \
+   >  cores  = var.vms_resources.web.cores \
+   >  memory = var.vms_resources.web.memory  \
+   >  core_fraction = var.vms_resources.web.core_fraction \
    > } 
 2. Для сервера БД:
    > resources { \
-   >  cores=local.vms_resources.db.cores \
-   >  memory=local.vms_resources.db.memory \
-   >  core_fraction=local.vms_resources.db.core_fraction \
+   >  cores=var.vms_resources.db.cores \
+   >  memory=var.vms_resources.db.memory \
+   >  core_fraction=var.vms_resources.db.core_fraction \
    > }
+3. А также используется общая для обоих ВМ input-переменная ```vms_metadata```
+   > metadata = var.vms_metadata
 
-### Результат выполнения ```terraform plan```:
+
+### Результат выполнения ```terraform plan```(в прошлый раз):
 
 <img src='images/terraform-plan2.png'>
+
+### Результат переразворачивания ВМ после изменений(```terraform destroy+terraform apply```):
+
+<img src='images/terraform-fix2.png'>
+
+
 
