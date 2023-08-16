@@ -132,12 +132,12 @@
    >        core_fraction = 20 \
    >     } \
    >   } \
-   > }  \
+   > }  
    >  
    > variable   "vms_metadata"   { \
    >    type = map  \
-   >    default = {}   \
-   > } \
+   >    default = {} \
+   > } 
   
 
 В результате в **main.tf** получилось(вместо local используются input-переменные)
